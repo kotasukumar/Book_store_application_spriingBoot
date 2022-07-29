@@ -50,15 +50,4 @@ public class MyWishlistController {
         ReasponseDTO reasponseDTO = new ReasponseDTO("deleted book from my wishlist", "Deleted book is: " + name);
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
-
-    /*
-     * Used to add a book into cart
-     * @Path: name (to find book of the name)
-     * @Return: book details with added message
-     * */
-    @PostMapping("/addtomycart/{name}")
-    public ResponseEntity<ReasponseDTO> addBookToMyCart(@PathVariable("name")String name, @RequestBody @Valid MyCartDTO myCartDTO){
-        ReasponseDTO reasponseDTO = new ReasponseDTO("Added to mycart", iWishlistService.addToMyCartUsingBookName(name, myCartDTO));
-        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
-    }
 }

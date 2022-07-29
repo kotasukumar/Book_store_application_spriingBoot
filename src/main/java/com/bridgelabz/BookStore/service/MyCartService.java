@@ -1,8 +1,9 @@
 package com.bridgelabz.BookStore.service;
 
-import com.bridgelabz.BookStore.dto.MyCartDTO;
 import com.bridgelabz.BookStore.execption.BookNotFoundExecption;
+import com.bridgelabz.BookStore.model.BookStoreData;
 import com.bridgelabz.BookStore.model.MyCart;
+import com.bridgelabz.BookStore.model.Registration;
 import com.bridgelabz.BookStore.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class MyCartService implements ICartService{
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    IRegistrationService iRegistrationService;
+
 
     /*
      * Used to add a book into cart
@@ -25,10 +29,18 @@ public class MyCartService implements ICartService{
      * @Return: book details
      * */
     @Override
-    public MyCart addToMyCartUsingBookName(String name, MyCartDTO myCartDTO) {
-        iBookService.searchBookByName(name);
-        MyCart myCart = MyCart.Build(myCartDTO.getId(), myCartDTO.getBookName(), (int) myCartDTO.getQuantity(), myCartDTO.getPrize());
-        return cartRepository.save(myCart);
+    public MyCart addToMyCartUsingId(int id, int userID) {
+        Registration registration = iRegistrationService.getUserById(id);
+        BookStoreData bookStoreData = iBookService.searchBookById(id);
+        if(bookStoreData.getQuantity() > 0) {
+            MyCart myCart = MyCart.Build(0, bookStoreData.getBookName(), 1, bookStoreData.getPrize(), bookStoreData.getBookImage(),
+                    bookStoreData.getAuthorName(), userID);
+            return cartRepository.save(myCart);
+        }else if(bookStoreData.getQuantity() == 0){
+            return null;
+        }else {
+            return null;
+        }
     }
 
     /*
@@ -37,27 +49,12 @@ public class MyCartService implements ICartService{
      * @Return: void
      * */
     @Override
-    public void deleteBookInMyCartUsingBookName(String name)throws BookNotFoundExecption {
-        MyCart myCart = cartRepository.findByBookName(name);
+    public void deleteBookInMyCartUsingId(int id)throws BookNotFoundExecption {
+        MyCart myCart = cartRepository.findById(id);
         if (myCart ==null){
-            throw  new BookNotFoundExecption("Book not found for the name:" + name);
+            throw  new BookNotFoundExecption("Book not found for the name:" + id);
         }
         cartRepository.delete(myCart);
-    }
-
-    /*
-     * Used to delete book from cart
-     * data: name,quantity (to search and delete certain quantity)
-     * @Return: void
-     * */
-    @Override
-    public void removeBookInMyCartUsingBookNameAndQuantity(String name, int quantity)throws BookNotFoundExecption {
-        MyCart myCart = cartRepository.findByBookName(name);
-        if (myCart == null){
-            throw  new BookNotFoundExecption("Book not found for the name:" + name);
-        }
-        myCart.setQuantity(quantity);
-
     }
 
     /*
@@ -68,4 +65,37 @@ public class MyCartService implements ICartService{
     public List<MyCart> getMyCartList() {
         return cartRepository.findAll();
     }
+
+    @Override
+    public MyCart increaseBookQuantityByOne(int id) {
+        BookStoreData bookStoreData = iBookService.searchBookById(id);
+        MyCart myCart = cartRepository.findById(id);
+        if (myCart != null && bookStoreData.getQuantity() >= myCart.getQuantity()) {
+            myCart.setQuantity(myCart.getQuantity() + 1);
+            myCart.setPrize(myCart.getPrize() + bookStoreData.getPrize());
+            return cartRepository.save(myCart);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public MyCart decreaseBookQuantityByOne(int id) {
+        BookStoreData bookStoreData = iBookService.searchBookById(id);
+        MyCart myCart = cartRepository.findById(id);
+        if (myCart != null && myCart.getQuantity() >= 0) {
+            myCart.setQuantity(myCart.getQuantity() - 1);
+            myCart.setPrize(myCart.getPrize() - bookStoreData.getPrize());
+            return cartRepository.save(myCart);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<MyCart> getCartByUserId(int id) {
+        return cartRepository.findByCartId(id);
+    }
+
+
 }

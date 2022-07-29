@@ -17,8 +17,12 @@ public class MyCart {
     //private List<BookStoreData> bookStoreDataList;
 
     @Id
+    @GeneratedValue
     private int id;
     private String bookName;
-    private int quantity;
+    private int quantity = 1;
     private float prize;
+    private String bookImage;
+    private String authorName;
+    private int cartId;
 }

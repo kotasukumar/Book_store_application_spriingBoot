@@ -31,7 +31,8 @@ public class BookService implements IBookService{
      * */
     @Override
     public BookStoreData createBook(BookDTO bookDTO) {
-        BookStoreData bookStoreData = BookStoreData.Build(0, bookDTO.getBookName(), bookDTO.getAuthorName(), bookDTO.getPrize(), (int) bookDTO.getQuantity());
+        BookStoreData bookStoreData = BookStoreData.Build(0, bookDTO.getBookName(), bookDTO.getAuthorName(), bookDTO.getPrize(), (int) bookDTO.getQuantity(),
+                bookDTO.getBookImage());
         return bookRepository.save(bookStoreData);
     }
 
@@ -49,7 +50,8 @@ public class BookService implements IBookService{
                 bookStoreData.setBookName(bookStoreData.getBookName());
                 bookStoreData.setAuthorName(bookStoreData.getAuthorName());
                 bookStoreData.setPrize(bookStoreData.getPrize());
-                return bookStoreData;
+                bookStoreData.setBookImage(bookStoreData.getBookImage());
+                return bookRepository.save(bookStoreData);
             }
         }
         return null;

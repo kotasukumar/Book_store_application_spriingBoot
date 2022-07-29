@@ -1,3 +1,4 @@
+/*
 package com.bridgelabz.BookStore.service;
 
 import org.springframework.security.core.userdetails.User;
@@ -12,9 +13,12 @@ import java.util.ArrayList;
 public class UserRegistrationService implements UserDetailsService {
 
 
-    /*passing user name and password*/
+    */
+/*passing user name and password*//*
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new User("sukumar", "123", new ArrayList<>());
     }
 }
+*/

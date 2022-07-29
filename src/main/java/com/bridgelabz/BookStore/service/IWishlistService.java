@@ -16,5 +16,4 @@ public interface IWishlistService {
 
     void deleteBookFromMyWishlist(String name);
 
-    MyCart addToMyCartUsingBookName(String name, MyCartDTO myCartDTO);
 }

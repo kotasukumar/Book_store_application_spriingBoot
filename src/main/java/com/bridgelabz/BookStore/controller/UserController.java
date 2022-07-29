@@ -1,3 +1,4 @@
+/*
 package com.bridgelabz.BookStore.controller;
 
 import com.bridgelabz.BookStore.model.Token;
@@ -25,10 +26,13 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    /*Used to generate token
+*/
+/*Used to generate token
     * @Body: user registration details
     * @Return: token
-    * */
+    * *//*
+
+
     @PostMapping("/authenticate")
     public Token authenticate(@RequestBody @Valid UserRegistration userRegistration) throws Exception {
         try {
@@ -46,3 +50,4 @@ public class UserController {
 
 }
 
+*/

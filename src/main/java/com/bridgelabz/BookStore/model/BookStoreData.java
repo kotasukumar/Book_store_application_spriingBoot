@@ -20,4 +20,5 @@ public class BookStoreData {
     private String authorName;
     private float prize;
     private int quantity;
+    private String bookImage;
 }

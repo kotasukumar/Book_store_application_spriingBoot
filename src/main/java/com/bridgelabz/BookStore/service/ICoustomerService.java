@@ -9,9 +9,9 @@ public interface ICoustomerService {
 
     CoustomerData addCoustomerDetails(CoustomerDetailsDTO coustomerDetailsDTO);
 
-    CoustomerData editCoustomerDetails(String name, CoustomerDetailsDTO coustomerDetailsDTO);
+    CoustomerData editCoustomerDetails(int id, CoustomerDetailsDTO coustomerDetailsDTO);
 
-    void deleteCoustomerDetails(String name);
+    void deleteCoustomerDetails(int id);
 
     List<CoustomerData> getCoustomerDetails();
 }

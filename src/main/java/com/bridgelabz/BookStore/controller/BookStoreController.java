@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/bookstoreapp")
 public class BookStoreController {
 
@@ -37,7 +38,7 @@ public class BookStoreController {
     * @return: Book_store_data with message to respond
     * */
     @GetMapping("/get/{name}")
-    public ResponseEntity getBookList(@PathVariable("name") String name){
+    public ResponseEntity<ReasponseDTO> getBookList(@PathVariable("name") String name){
         ReasponseDTO reasponseDTO = new ReasponseDTO("Results for your search", iBookService.searchBookByName(name));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
@@ -48,7 +49,7 @@ public class BookStoreController {
     * @Return: details of book that we added with message
     * */
     @PostMapping("/create")
-    public ResponseEntity createBook(@RequestBody BookDTO bookDTO){
+    public ResponseEntity<ReasponseDTO> createBook(@RequestBody BookDTO bookDTO){
         ReasponseDTO reasponseDTO = new ReasponseDTO("Created successfully", iBookService.createBook(bookDTO));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
@@ -60,7 +61,7 @@ public class BookStoreController {
     * @Return : Updated book details with message
     * */
     @PutMapping("/update/{id}")
-    public ResponseEntity updateBook(@PathVariable("id") int id, @RequestBody @Valid BookDTO bookDTO){
+    public ResponseEntity<ReasponseDTO> updateBook(@PathVariable("id") int id, @RequestBody @Valid BookDTO bookDTO){
         ReasponseDTO reasponseDTO = new ReasponseDTO("Updated successfully", iBookService.updateBookById(id, bookDTO));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
@@ -71,9 +72,20 @@ public class BookStoreController {
     * Return: ResponseDTO with message
     * */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteBook(@PathVariable("id")int id){
+    public ResponseEntity<ReasponseDTO> deleteBook(@PathVariable("id")int id){
         iBookService.deleteBookById(id);
         ReasponseDTO reasponseDTO = new ReasponseDTO("Deleted successfully", "Deleted Book id is: " + id);
+        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/sortByPriceHighToLow")
+    public ResponseEntity<ReasponseDTO> sortByPriceHighToLow(){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Sorting price high to low", iBookService.sortPrizeHighToLow());
+        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+    @GetMapping("/sortByPriceLowToHigh")
+    public ResponseEntity<ReasponseDTO> sortByPriceLowToHigh(){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Sorting price high to low", iBookService.sortPrizeLowToHigh());
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 }

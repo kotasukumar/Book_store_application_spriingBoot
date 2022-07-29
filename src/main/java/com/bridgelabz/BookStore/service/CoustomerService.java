@@ -25,7 +25,7 @@ public class CoustomerService implements ICoustomerService{
     @Override
     public CoustomerData addCoustomerDetails(CoustomerDetailsDTO coustomerDetailsDTO) {
         CoustomerData coustomerData = CoustomerData.Build(0, coustomerDetailsDTO.getName(),coustomerDetailsDTO.getPhoneNumber(), coustomerDetailsDTO.getPinCode(), coustomerDetailsDTO.getLocality(),
-                coustomerDetailsDTO.getAddress(), coustomerDetailsDTO.getCity(), coustomerDetailsDTO.getLandMark(), coustomerDetailsDTO.getEmail());
+                coustomerDetailsDTO.getAddress(), coustomerDetailsDTO.getCity(), coustomerDetailsDTO.getLandMark());
         return coustmerDetailsRepository.save(coustomerData);
     }
 
@@ -36,8 +36,8 @@ public class CoustomerService implements ICoustomerService{
      * @Return : Updated customer details
      * */
     @Override
-    public CoustomerData editCoustomerDetails(String name, CoustomerDetailsDTO coustomerDetailsDTO) throws BookNotFoundExecption {
-        CoustomerData coustomerData1 = coustmerDetailsRepository.findByName(name);
+    public CoustomerData editCoustomerDetails(int id, CoustomerDetailsDTO coustomerDetailsDTO) throws BookNotFoundExecption {
+        CoustomerData coustomerData1 = coustmerDetailsRepository.findById(id);
         if (coustomerData1 != null) {
             coustomerData1.setName(coustomerDetailsDTO.getName());
             coustomerData1.setPhoneNumber(coustomerDetailsDTO.getPhoneNumber());
@@ -46,10 +46,9 @@ public class CoustomerService implements ICoustomerService{
             coustomerData1.setAddress(coustomerDetailsDTO.getAddress());
             coustomerData1.setCity(coustomerDetailsDTO.getCity());
             coustomerData1.setLandMark(coustomerDetailsDTO.getLandMark());
-            coustomerData1.setEmail(coustomerDetailsDTO.getEmail());
-            return coustomerData1;
+            return coustmerDetailsRepository.save(coustomerData1);
         }else {
-            throw  new BookNotFoundExecption("Book not found for the name:" + name);
+            throw  new BookNotFoundExecption("Book not found for the id:" + id);
         }
     }
 
@@ -59,10 +58,10 @@ public class CoustomerService implements ICoustomerService{
      * @Return: void
      * */
     @Override
-    public void deleteCoustomerDetails(String name) {
-        CoustomerData coustomerData = coustmerDetailsRepository.findByName(name);
+    public void deleteCoustomerDetails(int id) {
+        CoustomerData coustomerData = coustmerDetailsRepository.findById(id);
         if (coustomerData == null){
-            throw  new BookNotFoundExecption("Book not found for the name:" + name);
+            throw  new BookNotFoundExecption("Book not found for the id:" + id);
         }
         coustmerDetailsRepository.delete(coustomerData);
     }

@@ -1,3 +1,4 @@
+/*
 package com.bridgelabz.BookStore.configuration;
 
 import com.bridgelabz.BookStore.filter.JWTFilter;
@@ -50,3 +51,4 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
+*/

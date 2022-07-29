@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/bookstoreapp/mycart")
 public class MyCartController {
 
@@ -34,33 +35,40 @@ public class MyCartController {
     * @Path: name (to find book of the name
     * @Return: book details with added message
     * */
-    @PostMapping("/addbook/{bookName}")
-    public ResponseEntity<ReasponseDTO> addBookToMyCart(@PathVariable("bookName") String bookName, @RequestBody @Valid MyCartDTO myCartDTO){
-        ReasponseDTO reasponseDTO = new ReasponseDTO("book added successfully", iCartService.addToMyCartUsingBookName(bookName, myCartDTO));
+    @PostMapping("/addbook/{id}/{userID}")
+    public ResponseEntity<ReasponseDTO> addBookToMyCart(@PathVariable int id,@PathVariable int userID){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("book added successfully", iCartService.addToMyCartUsingId(id, userID));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 
-    /*
-    * Used to delete book from cart
-    * @Path: name,quantity (to search and delete certain quantity)
-    * @Return: deleted message wth name of the book and quantity
-    * */
-    @DeleteMapping("/deletequantity/{bookName}/{quanity}")
-    public ResponseEntity<ReasponseDTO> deleteQuantity(@PathVariable("bookName") String bookName, @PathVariable("quantity") int quantity){
-        iCartService.removeBookInMyCartUsingBookNameAndQuantity(bookName, quantity);
-        ReasponseDTO reasponseDTO = new ReasponseDTO("deleted successfully", "deleted book name and quantity: " + bookName  + " " + quantity);
-        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
-    }
 
     /*
      * Used to delete book from cart
      * @Path: name (to search and delete)
      * @Return: deleted message wth name of the book
      * */
-    @DeleteMapping("/delete/{bookName}")
-    public ResponseEntity<ReasponseDTO> deletebook(@PathVariable String bookName){
-        iCartService.deleteBookInMyCartUsingBookName(bookName);
-        ReasponseDTO reasponseDTO = new ReasponseDTO("deleted successfully", "Deleted book name: " + bookName);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ReasponseDTO> deletebook(@PathVariable int id){
+        iCartService.deleteBookInMyCartUsingId(id);
+        ReasponseDTO reasponseDTO = new ReasponseDTO("deleted successfully", "Deleted book id: " + id);
         return  new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/increaseByOne/{id}")
+    public ResponseEntity<ReasponseDTO> increaseBookQuantity(@PathVariable int id){
+        ReasponseDTO reasponseDTO =  new ReasponseDTO("Increasing book quantity", iCartService.increaseBookQuantityByOne(id));
+        return  new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/decreaseByOne/{id}")
+    public ResponseEntity<ReasponseDTO> decreaseBookQuantity(@PathVariable int id){
+        ReasponseDTO reasponseDTO =  new ReasponseDTO("Increasing book quantity", iCartService.decreaseBookQuantityByOne(id));
+        return  new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/getCartByUserId/{id}")
+    public ResponseEntity<ReasponseDTO> getCartByUserId(@PathVariable int id){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Books in this user is", iCartService.getCartByUserId(id));
+        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CoustmerDetailsRepository extends JpaRepository<CoustomerData, String> {
 
-    CoustomerData findByName(String name);
+    CoustomerData findById(int id);
 }

@@ -23,4 +23,10 @@ public class MyCartDTO {
 
     @NotNull(message = "Quantity should not null")
     public float quantity;
+
+    public String bookImage;
+
+    public  String authorName;
+
+    public int cartId;
 }

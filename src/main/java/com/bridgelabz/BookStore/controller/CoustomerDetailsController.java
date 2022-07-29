@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/bookstoreapp/deliverydetails")
 public class CoustomerDetailsController {
 
@@ -38,9 +39,9 @@ public class CoustomerDetailsController {
     * @Body: customerDto with updated details
     * @Return : Updated customer details with updated message
     * */
-    @PutMapping("/updatedetails/{name}")
-    public ResponseEntity<ReasponseDTO> updateDeliveryDetails(@PathVariable("name") String name, @RequestBody @Valid CoustomerDetailsDTO coustomerDetailsDTO){
-        ReasponseDTO reasponseDTO = new ReasponseDTO("Delivery details updated", iCoustomerService.editCoustomerDetails(name, coustomerDetailsDTO));
+    @PutMapping("/updatedetails/{id}")
+    public ResponseEntity<ReasponseDTO> updateDeliveryDetails(@PathVariable("id") int id, @RequestBody @Valid CoustomerDetailsDTO coustomerDetailsDTO){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Delivery details updated", iCoustomerService.editCoustomerDetails(id, coustomerDetailsDTO));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 
@@ -49,9 +50,9 @@ public class CoustomerDetailsController {
     * @path: name (to search customer details  using name)
     * @Return: deleted message with message
     * */
-    @DeleteMapping("/deletedetails/{name}")
-    public ResponseEntity<ReasponseDTO> deleteDeliveryDetails(@PathVariable("name")String name){
-        iCoustomerService.deleteCoustomerDetails(name);
+    @DeleteMapping("/deletedetails/{id}")
+    public ResponseEntity<ReasponseDTO> deleteDeliveryDetails(@PathVariable("id")int id){
+        iCoustomerService.deleteCoustomerDetails(id);
         ReasponseDTO reasponseDTO = new ReasponseDTO("Deleted successfully", "Please enter delivery details for placing order");
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }

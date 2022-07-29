@@ -1,3 +1,4 @@
+/*
 package com.bridgelabz.BookStore.controller;
 
 import com.bridgelabz.BookStore.dto.ReasponseDTO;
@@ -19,10 +20,12 @@ public class EmailController {
     @Autowired
     EmailService emailService;
 
-    /*
-    * Used to send mail
+    */
+/** Used to send mail
     * @Body: Email
-    * @Return: message with id of receiver*/
+    * @Return: message with id of receiver*//*
+
+
     @PostMapping("/sentemail")
     public ResponseEntity<ReasponseDTO> sendEmail(@RequestBody @Valid Email email){
         emailService.sendEmail(email);
@@ -30,3 +33,4 @@ public class EmailController {
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 }
+*/

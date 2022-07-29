@@ -1,3 +1,4 @@
+/*
 package com.bridgelabz.BookStore.email;
 
 import com.bridgelabz.BookStore.model.Email;
@@ -12,10 +13,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    /*
-    * Used to set details
+   */
+/* * Used to set details
     * @Return: sent message
-    * */
+    * *//*
+
+
     public void sendEmail(Email email) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("sukumar.kindia@gmail.com");
@@ -26,3 +29,4 @@ public class EmailService {
         System.out.println("Mail Sent Successfully...");
     }
 }
+*/

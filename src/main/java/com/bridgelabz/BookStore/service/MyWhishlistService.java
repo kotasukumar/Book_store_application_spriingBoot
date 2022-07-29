@@ -9,7 +9,6 @@ import com.bridgelabz.BookStore.model.MyWishList;
 import com.bridgelabz.BookStore.repository.BookRepository;
 import com.bridgelabz.BookStore.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -68,13 +67,4 @@ public class MyWhishlistService implements IWishlistService{
         wishlistRepository.delete(myWishList);
     }
 
-    /*
-     * Used to add a book into cart
-     * @Path: name (to find book of the name)
-     * @Return: book details
-     * */@Override
-    public MyCart addToMyCartUsingBookName(String name, MyCartDTO myCartDTO) {
-        MyCart myCart = iCartService.addToMyCartUsingBookName(name, myCartDTO);
-        return myCart;
-    }
 }

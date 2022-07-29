@@ -21,4 +21,6 @@ public class BookDTO {
 
     @NotNull(message = "Quantity should not null")
     public float quantity;
+
+    public String bookImage;
 }

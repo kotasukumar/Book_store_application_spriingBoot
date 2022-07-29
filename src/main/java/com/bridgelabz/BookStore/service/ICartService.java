@@ -7,11 +7,15 @@ import java.util.List;
 
 public interface ICartService {
 
-    MyCart addToMyCartUsingBookName(String name, MyCartDTO myCartDTO);
+    MyCart addToMyCartUsingId(int id, int userID);
 
-    void deleteBookInMyCartUsingBookName(String name);
-
-    void removeBookInMyCartUsingBookNameAndQuantity(String name, int quantity);
+    void deleteBookInMyCartUsingId(int id);
 
     List<MyCart> getMyCartList();
+
+    MyCart increaseBookQuantityByOne(int id);
+
+    MyCart decreaseBookQuantityByOne(int id);
+
+    List<MyCart> getCartByUserId(int id);
 }

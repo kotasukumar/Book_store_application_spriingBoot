@@ -13,9 +13,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class CoustomerDetailsDTO {
 
-    @NotNull(message = "id should not null")
-    public int orderId;
-
     @NotNull(message = "Name should not null")
     public String name;
 
@@ -23,7 +20,7 @@ public class CoustomerDetailsDTO {
     public String phoneNumber;
 
     @NotNull(message = "pin code should not null")
-    public long pinCode;
+    public String pinCode;
 
     @NotNull(message = "Locality name should not null")
     public String locality;
@@ -36,7 +33,4 @@ public class CoustomerDetailsDTO {
 
     @NotNull(message = "Land mark should not null")
     public String landMark;
-
-    @NotNull(message = "Email should not null")
-    public String email;
 }
