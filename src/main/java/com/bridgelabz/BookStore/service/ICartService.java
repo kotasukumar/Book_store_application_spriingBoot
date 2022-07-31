@@ -18,4 +18,8 @@ public interface ICartService {
     MyCart decreaseBookQuantityByOne(int id);
 
     List<MyCart> getCartByUserId(int id);
+
+    void emptyCart(int userID);
+
+    float getCartPrice(int userID);
 }

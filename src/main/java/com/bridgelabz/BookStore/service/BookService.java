@@ -47,10 +47,11 @@ public class BookService implements IBookService{
         List<BookStoreData> bookStoreDataList = this.getBookList();
         for(BookStoreData bookStoreData : bookStoreDataList){
             if (bookStoreData.getId() == id){
-                bookStoreData.setBookName(bookStoreData.getBookName());
-                bookStoreData.setAuthorName(bookStoreData.getAuthorName());
-                bookStoreData.setPrize(bookStoreData.getPrize());
-                bookStoreData.setBookImage(bookStoreData.getBookImage());
+                bookStoreData.setBookName(bookDTO.getBookName());
+                bookStoreData.setAuthorName(bookDTO.getAuthorName());
+                bookStoreData.setPrize(bookDTO.getPrize());
+                bookStoreData.setQuantity((int) bookDTO.getQuantity());
+                bookStoreData.setBookImage(bookDTO.getBookImage());
                 return bookRepository.save(bookStoreData);
             }
         }

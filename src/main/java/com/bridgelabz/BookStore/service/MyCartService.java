@@ -97,5 +97,23 @@ public class MyCartService implements ICartService{
         return cartRepository.findByCartId(id);
     }
 
+    @Override
+    public void emptyCart(int userID) {
+        List<MyCart> myCarts = cartRepository.findByCartId(userID);
+        for (MyCart myCart : myCarts){
+            cartRepository.delete(myCart);
+        }
+    }
+
+    @Override
+    public float getCartPrice(int userID) {
+        List<MyCart> myCarts = cartRepository.findByCartId(userID);
+        float temp =  0;
+        for (MyCart myCart : myCarts){
+            temp = temp + myCart.getPrize();
+        }
+        return temp;
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.bridgelabz.BookStore.controller;
 
-import com.bridgelabz.BookStore.dto.MyCartDTO;
 import com.bridgelabz.BookStore.dto.ReasponseDTO;
 import com.bridgelabz.BookStore.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -69,6 +67,18 @@ public class MyCartController {
     @GetMapping("/getCartByUserId/{id}")
     public ResponseEntity<ReasponseDTO> getCartByUserId(@PathVariable int id){
         ReasponseDTO reasponseDTO = new ReasponseDTO("Books in this user is", iCartService.getCartByUserId(id));
+        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/emptyCart/{userID}")
+    public ResponseEntity<ReasponseDTO> emptyCart(@PathVariable int userID){
+        iCartService.emptyCart(userID);
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Empted cart", "userID is" + userID);
+        return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
+    }
+    @GetMapping("/getCartPrice/{userID}")
+    public ResponseEntity<ReasponseDTO> getCartPrice(@PathVariable int userID){
+        ReasponseDTO reasponseDTO = new ReasponseDTO("Total cart price of given user is ", iCartService.getCartPrice(userID));
         return new ResponseEntity<>(reasponseDTO, HttpStatus.OK);
     }
 }
